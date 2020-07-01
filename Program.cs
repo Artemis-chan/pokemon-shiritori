@@ -8,7 +8,7 @@ namespace pokemon_shiritori
         static void Main(string[] args)
         {
             var mgr = new PokeShiriManager();
-            Console.WriteLine($"Let's play Pokemon Shiritori!\nName a pokemon name that starts with {mgr.nextChar}");
+            Console.WriteLine($"Let's play Pokémon Shiritori!\nName a pokemon name that starts with {mgr.nextChar}");
             while (true)
             {
                 Console.Write("> ");
@@ -22,13 +22,13 @@ namespace pokemon_shiritori
                         Console.WriteLine("Wrong initial");
                         break;
                     case Result.NoPokemon:
-                        Console.WriteLine("No such pokemon exists");
+                        Console.WriteLine("No such Pokémon exists");
                         break;
                     case Result.Finish:
                         Console.WriteLine("Game ended");
                         return;
                     default:
-                        Console.WriteLine($"Name a pokemon name that starts with {mgr.nextChar}");
+                        Console.WriteLine($"Name a Pokémon name that starts with {mgr.nextChar}");
                         break;
                 }
             }
