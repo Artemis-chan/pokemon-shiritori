@@ -9,7 +9,8 @@ namespace Artemis.PokemonShiritori
         Done,
         WrongInitial,
         AlreadySaid,
-        NoPokemon
+        NoPokemon,
+        Finish
     }
 
     public class PokeShiriManager
@@ -22,7 +23,8 @@ namespace Artemis.PokemonShiritori
 
         public PokeShiriManager()
         {
-            nextChar = (char)new Random().Next(0x61, 0x7b);
+            SetRandomInit();
+            //nextChar = 'a';
 
             for (char c = 'a'; c <= 'z'; c++)
             {
@@ -46,10 +48,46 @@ namespace Artemis.PokemonShiritori
                 return Result.NoPokemon;
 
             _saidList[nextChar].Add(name);
-            nextChar = name[name.Length - 1];
 
-            return Result.Done;
+            /*nextChar = name[name.Length - 1];
+            for (int i = 2; !InitAvailable(nextChar); i++)
+            {
+                nextChar = name[name.Length - i];
+
+                if (i > name.Length)
+                    return Result.Finish;
+            }*/
+
+            /*{
+                int i = 1;
+                do
+                {
+                    nextChar = name[name.Length - i];
+                    i++;
+
+                    if(i > name.Length)
+                        return Result.Finish;
+
+                } while(!InitAvailable(nextChar));
+            }*/
+            for (int i = 1; i <= name.Length; i++)
+            {
+                nextChar = name[name.Length - i];
+
+                if(InitAvailable(nextChar))
+                    return Result.Done;
+            }
+
+            return Result.Finish;
         }
+
+        public void SetRandomInit()
+        {
+            nextChar = (char)new Random().Next(0x61, 0x7b);
+        }
+
+        private bool InitAvailable(char init) =>
+            (_namesList[init].Count > _saidList[init].Count);
 
         private static void FillDictionary()
         {
